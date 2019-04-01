@@ -71,6 +71,7 @@ OK
 Check the catalog in ICP.
 `Menu > Manage > Helm Repositories`
 Then go to Catalog and search for ldap
+![Catalog](img/openldap01.png "Catalog")
 
 ## Deploy openLDAP
 
