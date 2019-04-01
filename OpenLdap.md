@@ -74,7 +74,7 @@ Then go to Catalog and search for ldap
 ![Catalog](img/openldap01.png "Catalog")
 
 ## Deploy openLDAP
-
+![Catalog](img/openldap02.png "Catalog")
 Make sure you are happy with the
 •	admin password :“admin”
 •	user: mcm, cem, user1, user2, user3, user4
@@ -83,11 +83,11 @@ Make sure you are happy with the
 •	Domain: cemcluster.icp
 
 We can change the default values in the yaml.
-
+![Catalog](img/openldap03.png "Catalog")
 Click Install.  Then click the pop-up windows.
-
+![Catalog](img/openldap04.png "Catalog")
 2 pods are running, good.
-
+![Catalog](img/openldap05.png "Catalog")
 Note the 2 services: ldap service and admin service.
 
 
@@ -231,7 +231,7 @@ root@openldap-rel-6fbcc4c856-b9l69:/#
 ## Create ICP LDAP Connection
 ###	Get the LDAP Connection Detail:
 
-
+![Catalog](img/openldap06.png "Catalog")
 
 ###	Get the LDAP objectclass
 
@@ -252,9 +252,9 @@ User ID map: *:uid
 
 `Menu > Manage > Identity & Access > Authentication`
 Create LDAP connection:
-
+![Catalog](img/openldap07.png "Catalog")
 Click Test Connection.
-
+![Catalog](img/openldap08.png "Catalog")
 Note, the BindDN has to be in the format: `cd=admin,dc=cemcluster,dc=icp`
 
 
@@ -266,13 +266,14 @@ Once we got the LDAP Connection detail defined, we are ready to create team.
 `Menu > Manage > Identity & Access > Teams`
 
 ###	Create team
-
+![Catalog](img/openldap09.png "Catalog")
 
 ###	Add User to the team
-
+![Catalog](img/openldap10.png "Catalog")
 
 ###	Add the resources (namespace, helm repository, directory)
-
+![Catalog](img/openldap11.png "Catalog")
 
 ###	Test
 Test by logging out and logging in as the new user:
+![Catalog](img/openldap12.png "Catalog")
