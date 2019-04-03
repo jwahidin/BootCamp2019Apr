@@ -1,4 +1,6 @@
 # MCM Resource and App Placement
+Your environment might have a different setting, please modify the namespace and cluster name
+
 ## Cluster Image Policy
 Starting with ICP 3.1.2, there is a CLuster Image Policy.
 
@@ -145,3 +147,62 @@ We need the following:
 We put all of this in a yaml file: gbapp_demo.yaml
 
 Open the yaml file, and notice the placement policy and placement binding.
+
+## Deploy the yaml file.
+
+Apply the yaml file.
+
+```
+kubectl apply -f gbapp_demo.yaml
+```
+
+To check the effect you can run the following command:
+```
+mcmctl get application
+mcmctl get deployable
+mcmctl get placementpolicy
+mcmctl get placementbinding
+mcmctl get applicationrelationship
+```
+
+For example:
+```
+[root@icp1m1 ~]# mcmctl get application
+NAME         AGE
+gbaa-gbapp   3m
+
+[root@icp1m1 ~]# mcmctl get deployable
+NAME                     DEPLOYER   AGE       DETAILS
+gbaa-gbapp-frontend      helm       3m        ChartURL:https://raw.githubusercontent.com/abdasgupta/helm-repo/master/3.1-mcm-guestbook/gbf-0.1.0.tgz
+gbaa-gbapp-redismaster   helm       3m        ChartURL:https://raw.githubusercontent.com/abdasgupta/helm-repo/master/3.1-mcm-guestbook/gbrm-0.1.0.tgz
+gbaa-gbapp-redisslave    helm       3m        ChartURL:https://raw.githubusercontent.com/abdasgupta/helm-repo/master/3.1-mcm-guestbook/gbrs-0.1.0.tgz
+
+[root@icp1m1 ~]# mcmctl get placementpolicy
+NAME                     REPLICAS   ORDERBY   DECISIONS         AGE
+gbaa-gbapp-frontend      1          cpu()     hub-maincluster   3m
+gbaa-gbapp-redismaster   1          cpu()     hub-maincluster   3m
+
+[root@icp1m1 ~]# mcmctl get placementbinding
+NAME                     PLACEMENTPOLICY          SUBJECTS                                         AGE
+gbaa-gbapp-frontend      gbaa-gbapp-frontend      gbaa-gbapp-frontend(Deployable.mcm.ibm.com)      3m
+gbaa-gbapp-redismaster   gbaa-gbapp-redismaster   gbaa-gbapp-redismaster(Deployable.mcm.ibm.com)   3m
+
+[root@icp1m1 ~]# mcmctl get applicationrelationship
+NAME                     TYPE          SOURCE                            DESTINATION                          AGE
+gbaa-gbapp-appfrontend   contains      gbaa-gbapp(Application)           gbaa-gbapp-frontend(Deployable)      3m
+gbaa-gbapp-appmaster     contains      gbaa-gbapp(Application)           gbaa-gbapp-redismaster(Deployable)   3m
+gbaa-gbapp-slave         usesCreated   gbaa-gbapp-frontend(Deployable)   gbaa-gbapp-redisslave(Deployable)    3m
+[root@icp1m1 ~]# 
+```
+Bring the MCM Web Interface, and choose the application menu and notice that the application is listed.
+
+![MCM](img/mcmapp01.png "MCM")
+
+
+
+![MCM](img/mcmapp02.png "MCM")
+![MCM](img/mcmapp03.png "MCM")
+![MCM](img/mcmapp04.png "MCM")
+![MCM](img/mcmapp05.png "MCM")
+![MCM](img/mcmapp06.png "MCM")
+![MCM](img/mcmapp07.png "MCM")
