@@ -194,15 +194,28 @@ gbaa-gbapp-appmaster     contains      gbaa-gbapp(Application)         
 gbaa-gbapp-slave         usesCreated   gbaa-gbapp-frontend(Deployable)   gbaa-gbapp-redisslave(Deployable)    3m
 [root@icp1m1 ~]# 
 ```
-Bring the MCM Web Interface, and choose the application menu and notice that the application is listed.
-
+## Work with application
+Bring the MCM Web Interface, and choose the application menu. The application should be listed.
 ![MCM](img/mcmapp01.png "MCM")
 
-
-
+Click on the `Launch Health View` link, this should take you to the Grafana dashboard created automatically by MCM:
 ![MCM](img/mcmapp02.png "MCM")
+
+
+Go back to the application list view, and click the application name itself, Click the `Diagram` menu.
 ![MCM](img/mcmapp03.png "MCM")
+
+Switch back to the ICP view (Local Cluster) and bring up the deployment menu.
 ![MCM](img/mcmapp04.png "MCM")
+
+Click on the `launch` link.  You should be able to view and interact with the application itself.
 ![MCM](img/mcmapp05.png "MCM")
+
+## Place the application to the other cluster
+Go back to the application deployment view, and go to the section that show the placement selection, select the edit menu.  You are presented with the yaml editor mode, edit the placement selection with the label that show the other cluster.  Edit both placement.
 ![MCM](img/mcmapp06.png "MCM")
+
+Notice the cluster selected now should show the other cluster.
 ![MCM](img/mcmapp07.png "MCM")
+
+Go to the ICP interface of the other cluster, and as before select the deployment, and launch the application.  YOu can verify that the application is now running on the other cluster.
