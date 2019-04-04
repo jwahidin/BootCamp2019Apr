@@ -1,0 +1,31 @@
+apiVersion: compliance.mcm.ibm.com/v1alpha1
+kind: Compliance
+metadata:
+  name: testc2
+  namespace: mcm-small-cluster-ns
+spec:
+  clusterSelector:
+    matchLabels:
+      owner: "csmo"
+  runtime-rules:
+    - apiVersion: policy.mcm.ibm.com/v1alpha1
+      kind: Policy
+      metadata:
+        name: policy01
+      spec:
+        remediationAction: "inform" # or inform 
+        namespaces:
+          include: ["*"]
+          exclude: ["kube*"]
+        role-templates:
+          - kind: RoleTemplate
+            apiVersion: roletemplate.mcm.ibm.com/v1alpha1
+            complianceType: "musthave" 
+            metadata:
+              name: operator
+            rules:
+              - complianceType: "musthave" 
+                policyRule:
+                  apiGroups: ["extensions", "apps"]
+                  resources: ["deployments"]
+                  verbs: ["get", "list", "watch", "create", "delete","patch"] 

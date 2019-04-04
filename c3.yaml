@@ -1,0 +1,65 @@
+apiVersion: compliance.mcm.ibm.com/v1alpha1
+kind: Compliance
+metadata:
+  name: testc3
+  namespace: "mcm-cem-cluster-ns"
+spec:
+  runtime-rules:
+    - apiVersion: policy.mcm.ibm.com/v1alpha1
+      kind: Policy
+      metadata:
+        name: policy01
+      spec:
+        remediationAction: "enforce" # or inform
+        namespaces:
+          include: ["mcm-cem-cluster-ns"]
+          exclude: ["kube*"]
+        role-templates:
+          - kind: RoleTemplate
+            apiVersion: roletemplate.mcm.ibm.com/v1alpha1
+            complianceType: "musthave" 
+            metadata:
+              namespace: "" # will be inferred
+              name: operator
+            rules:
+              - complianceType: "musthave" 
+                policyRule:
+                  apiGroups: ["extensions", "apps"]
+                  resources: ["deployments"]
+                  verbs: ["get", "list", "watch"]
+        object-templates:
+          - complianceType: "musthave"
+            objectDefinition:
+              apiVersion: v1    
+              kind: LimitRange  
+              metadata:
+                name: mem-limit-range  
+              spec:
+                limits:  
+                - default:  
+                    memory: 512Mi  
+                  defaultRequest:  
+                    memory: 256Mi  
+                  type: Container
+    - apiVersion: policy.mcm.ibm.com/v1alpha1
+      kind: Policy
+      metadata:
+        name: policy02
+      spec:
+        remediationAction: "inform" # enforce or inform
+        namespaces:
+          include: ["mcm-cem-cluster-ns"]
+          exclude: ["kube*"]
+        role-templates:
+          - kind: RoleTemplate
+            apiVersion: roletemplate.mcm.ibm.com/v1alpha1
+            complianceType: "musthave" 
+            metadata:
+              namespace: "" # will be inferred
+              name: dev
+            rules:
+              - complianceType: "musthave" 
+                policyRule:
+                  apiGroups: ["extensions", "apps"]
+                  resources: ["deployments"]
+                  verbs: ["get", "list", "watch", "delete"]

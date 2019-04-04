@@ -1,6 +1,33 @@
 # MCM Resource and App Placement
 Your environment might have a different setting, please modify the namespace and cluster name
 
+As usual start by logging in to the cluster if you have not done so.
+
+```
+JuliusMBP:~ jwahidin$ cloudctl login -a https://172.16.254.88:8443 -u admin -n kube-system --skip-ssl-validation
+
+Password>
+Authenticating...
+OK
+
+Targeted account cemcluster Account (id-cemcluster-account)
+
+Targeted namespace kube-system
+
+Configuring kubectl ...
+Property "clusters.cemcluster" unset.
+Property "users.cemcluster-user" unset.
+Property "contexts.cemcluster-context" unset.
+Cluster "cemcluster" set.
+User "cemcluster-user" set.
+Context "cemcluster-context" created.
+Switched to context "cemcluster-context".
+OK
+
+Configuring helm: /Users/jwahidin/.helm
+OK
+```
+
 ## Cluster Image Policy
 Starting with ICP 3.1.2, there is a CLuster Image Policy.
 
@@ -145,8 +172,13 @@ We need the following:
   - Placement Binding: Bind the Policy to the current instance.
 
 We put all of this in a yaml file: gbapp_demo.yaml
+This yaml file should be in your local git repository.
 
-Open the yaml file, and notice the placement policy and placement binding.
+Open the MCM GUI (ICP Main Menu, select MCM), then select the cluster.  Note down all the labels for both clusters, you will use the label to place the application.
+
+Open the gbapp_demo.yaml file, and notice the placement policy and placement binding.
+
+Please modify the label to the label of your environment, select the hub controller cluster.
 
 ## Deploy the yaml file.
 

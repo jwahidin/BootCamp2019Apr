@@ -1,6 +1,11 @@
 # Studying MCM components
 Login to the environment.
 Replace the IP address to the correct version for your environment.
+
+Note: You need to work on the 2 clusters (ie. have 2 terminal windows and login to 2 different clusters):
+
+Start by login to the cluster.
+
 ```
 [root@icp2m1 ~]# cloudctl login -a https://172.16.254.203:8443 -u admin -n kube-system --skip-ssl-validation
 
@@ -25,6 +30,17 @@ OK
 Configuring helm: /root/.helm
 OK
 ```
+
+## Clusters.
+you can view the clusters:
+```
+JuliusMBP:~ jwahidin$ kubectl get clusters --all-namespaces
+NAMESPACE              NAME                ENDPOINTS             STATUS   AGE
+mcm-cem-cluster-ns     mcm-cem-cluster     172.16.254.88:8001    Ready    12d
+mcm-small-cluster-ns   mcm-small-cluster   172.16.254.203:8001   Ready    8d
+```
+
+Note the namespaces and the clustername.
 
 ## Hub Controller.
 ### PODS
